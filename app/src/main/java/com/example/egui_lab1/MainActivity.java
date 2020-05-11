@@ -1,12 +1,12 @@
 package com.example.egui_lab1;
 
 import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         calcTipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText billingAmountView = (EditText) findViewById(R.id.inputAmount);
+                EditText billingAmountView = findViewById(R.id.inputAmount);
                 TextView totalResultView = (TextView) findViewById(R.id.SumAmountView);
                 TextView tipResultView = (TextView) findViewById(R.id.TipAmountView);
 
