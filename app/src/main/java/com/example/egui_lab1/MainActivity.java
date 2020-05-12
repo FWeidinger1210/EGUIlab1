@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
                 float bllngAmnt = Float.parseFloat(billingAmountView.getText().toString());
                 float tip = bllngAmnt / 10;
-                float totalSumResult = tip + bllngAmnt;
-                totalResultView.setText(totalSumResult + "");
-                tipResultView.setText(tip + "");
+                float totalSumResult = tip+bllngAmnt;
+                totalResultView.setText(String.format(Locale.US,"%.2f",totalSumResult));
+                tipResultView.setText(String.format(Locale.US,"%.2f",tip));
             }
         });
     }
