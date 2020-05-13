@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Name of the primary database.
      */
-    private final String databaseName = "historyDB";
+    final String databaseName = "historyDB.db";
 
 
     RadioGroup radioGroup;
@@ -45,9 +45,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button calcTipBtn = findViewById(R.id.calcTipBtn);
         Button historyBtn = findViewById(R.id.historyButton);
+        radioGroup = findViewById(R.id.radioGroup);
 
         calcTipBtn.setOnClickListener(this);
         historyBtn.setOnClickListener(this);
+
+        if (isFirstAppStart()) {
+            createDatabase();
+        }
     }
 
     @Override
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView tipResultView = findViewById(R.id.TipAmountView);
 
                 float bllngAmnt = Float.parseFloat(billingAmountView.getText().toString());
-                float tip = bllngAmnt / (getSelectedTip());
+                float tip = bllngAmnt / getSelectedTip();
                 float totalSumResult = tip + bllngAmnt;
                 totalResultView.setText(String.format(Locale.US, "%.2f", totalSumResult));
                 tipResultView.setText(String.format(Locale.US, "%.2f", tip));
@@ -123,9 +128,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         databaseUser.close();
     }
 
+
+
     public void viewHistory(View view) {
         //TODO Go to secondary activity when button is pressed
         //Intent intent = new Intent(this,DisplayHistoryActivity.class);
-
     }
+
 }
