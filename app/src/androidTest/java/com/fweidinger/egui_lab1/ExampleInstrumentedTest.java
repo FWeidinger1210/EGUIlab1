@@ -1,4 +1,4 @@
-package com.example.egui_lab1;
+package com.fweidinger.egui_lab1;
 
 import android.content.Context;
 
