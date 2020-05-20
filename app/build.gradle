@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.egui_lab1"
+        applicationId "com.fweidinger.egui_lab1"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1

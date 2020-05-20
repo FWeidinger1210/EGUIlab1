@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.egui_lab1", appContext.getPackageName());
+        assertEquals("com.fweidinger.egui_lab1", appContext.getPackageName());
     }
 }
