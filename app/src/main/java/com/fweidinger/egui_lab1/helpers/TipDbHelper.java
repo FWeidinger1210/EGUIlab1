@@ -53,7 +53,7 @@ public class TipDbHelper extends SQLiteOpenHelper {
      */
     public Cursor getData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + ModelTipHistory.TipEntry.getTableName() + "where id=" + id + "", null);
+        return db.rawQuery("SELECT * FROM " + ModelTipHistory.TipEntry.getTableName(), null);
     }
 
 }

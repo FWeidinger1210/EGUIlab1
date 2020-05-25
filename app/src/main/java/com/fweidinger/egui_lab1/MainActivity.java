@@ -1,5 +1,6 @@
 package com.fweidinger.egui_lab1;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         calcTipBtn.setOnClickListener(this);
         historyBtn.setOnClickListener(this);
 
+
     }
 
     @Override
@@ -72,7 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tipDBHelper.insertEntry(tip, "Darmstadt", 1245151512);
                 break;
             case R.id.historyButton:
-
+                viewHistory();
+                break;
+            default:
                 break;
 
         }
@@ -123,10 +127,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return first;
     }
 
-
-    public void viewHistory(View view) {
+    /**
+     * viewHistory will switch to the HistoryActivity. Method is called when the use taps the history button.
+     */
+    public void viewHistory() {
         //TODO Go to secondary activity when button is pressed
-        //Intent intent = new Intent(this,DisplayHistoryActivity.class);
+        Intent intent = new Intent(this, HistoryActivity.class);
+        startActivity(intent);
     }
 
 }
