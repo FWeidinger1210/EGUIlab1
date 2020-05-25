@@ -1,7 +1,6 @@
 package com.fweidinger.egui_lab1;
 
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.fweidinger.egui_lab1.helpers.TipDbHelper;
 
 import java.util.Locale;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     RadioGroup radioGroup;
     RadioButton radioButton;
+    TipDbHelper tipDBHelper;
 
     private float selectedTip;
 
@@ -46,13 +48,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button calcTipBtn = findViewById(R.id.calcTipBtn);
         Button historyBtn = findViewById(R.id.historyButton);
         radioGroup = findViewById(R.id.radioGroup);
+        tipDBHelper = new TipDbHelper(this);
 
         calcTipBtn.setOnClickListener(this);
         historyBtn.setOnClickListener(this);
 
-        if (isFirstAppStart()) {
-            createDatabase();
-        }
     }
 
     @Override
@@ -69,16 +69,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 float totalSumResult = tip + bllngAmnt;
                 totalResultView.setText(String.format(Locale.US, "%.2f", totalSumResult));
                 tipResultView.setText(String.format(Locale.US, "%.2f", tip));
+                tipDBHelper.insertEntry(tip, "Darmstadt", 1245151512);
                 break;
             case R.id.historyButton:
-                // TODO: Waiting for method implementation viewHistory()
+
                 break;
 
         }
     }
 
     /**
-     * This method is called when a radioButton of ButtonGroup is pressed. Distinguishes specific RadioButton by ID and selects tip.
+     * This method is called when a RadioButton of buttonGroup is pressed. Distinguishes between specific RadioButton by ID and selects tip.
      *
      * @param v The view
      */
@@ -99,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "Selected Tip: generous 20%", Toast.LENGTH_SHORT).show();
                 this.setSelectedTip(5);
                 break;
+            default:
+                Toast.makeText(this, "Invalid Action", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -118,16 +122,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return first;
     }
-
-    /**
-     * Creates the 'History' database Columns: date, location, tip.
-     */
-    public void createDatabase() {
-        SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseUser.execSQL("CREATE TABLE history(date TEXT,location TEXT, tip FLOAT)");
-        databaseUser.close();
-    }
-
 
 
     public void viewHistory(View view) {
