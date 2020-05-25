@@ -53,30 +53,63 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupGenerosity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/calcTipBtn"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroupQOS"
+        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputAmount">
 
         <RadioButton
-            android:id="@+id/radio_one"
+            android:id="@+id/radioGEN_ONE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="checkButtonGen"
+            android:text="Cheap" />
+
+        <RadioButton
+            android:id="@+id/radioGEN_TWO"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="checkButtonGen"
+            android:text="Normal" />
+
+        <RadioButton
+            android:id="@+id/radioGEN_THREE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="checkButtonGen"
+            android:text="Generous" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroupQOS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/calcTipBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radioGroupGenerosity"
+        app:layout_constraintTop_toBottomOf="@+id/inputAmount">
+
+        <RadioButton
+            android:id="@+id/radioQOS_ONE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkButton"
             android:text="Very Poor" />
 
         <RadioButton
-            android:id="@+id/radio_two"
+            android:id="@+id/radioQOS_TWO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkButton"
             android:text="Moderate" />
 
         <RadioButton
-            android:id="@+id/radio_three"
+            android:id="@+id/radioQOS_THREE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkButton"

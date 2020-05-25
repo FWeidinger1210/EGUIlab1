@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fweidinger.egui_lab1.helpers.TipDbHelper;
+import com.fweidinger.egui_lab1.helpers.DatabaseHelper;
 
 import java.util.Locale;
 
@@ -26,19 +26,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final String databaseName = "historyDB.db";
 
 
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-    TipDbHelper tipDBHelper;
+    RadioGroup radioGroupQOS;
+    RadioButton radioButtonQOS;
+    RadioGroup radioGroupGEN;
+    RadioButton radioButtonGEN;
+    DatabaseHelper databaseHelper;
 
-    private float selectedTip;
+    private float qosValue;
 
-    public float getSelectedTip() {
-        return selectedTip;
+    public float getQosValue() {
+        return qosValue;
     }
 
-    public void setSelectedTip(float selectedTip) {
-        this.selectedTip = selectedTip;
+    public void setQosValue(float qosValue) {
+        this.qosValue = qosValue;
     }
+
+    public float getGenerosityValue() {
+        return generosityValue;
+    }
+
+    public void setGenerosityValue(float generosityValue) {
+        this.generosityValue = generosityValue;
+    }
+
+    private float generosityValue;
 
 
     @Override
@@ -48,8 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button calcTipBtn = findViewById(R.id.calcTipBtn);
         Button historyBtn = findViewById(R.id.historyButton);
-        radioGroup = findViewById(R.id.radioGroup);
-        tipDBHelper = new TipDbHelper(this);
+        radioGroupQOS = findViewById(R.id.radioGroupQOS);
+        radioGroupGEN= findViewById(R.id.radioGroupGenerosity);
+        databaseHelper = new DatabaseHelper(this);
 
         calcTipBtn.setOnClickListener(this);
         historyBtn.setOnClickListener(this);
@@ -67,11 +80,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView tipResultView = findViewById(R.id.TipAmountView);
 
                 float bllngAmnt = Float.parseFloat(billingAmountView.getText().toString());
-                float tip = bllngAmnt / getSelectedTip();
+                float tip = bllngAmnt * (getGenerosityValue()*getQosValue())/100;
                 float totalSumResult = tip + bllngAmnt;
                 totalResultView.setText(String.format(Locale.US, "%.2f", totalSumResult));
                 tipResultView.setText(String.format(Locale.US, "%.2f", tip));
-                tipDBHelper.insertEntry(tip, "Darmstadt", 1245151512);
+                databaseHelper.insertEntry(tip, "Darmstadt", 1245151512);
                 break;
             case R.id.historyButton:
                 viewHistory();
@@ -89,23 +102,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void checkButton(View v) {
 
-        int radioID = radioGroup.getCheckedRadioButtonId();
-        radioButton = findViewById(radioID);
-        switch (radioButton.getId()) {
-            case R.id.radio_one:
-                Toast.makeText(this, "Selected Tip: cheap - 5%", Toast.LENGTH_SHORT).show();
-                this.setSelectedTip(20);
+        int radioID = radioGroupQOS.getCheckedRadioButtonId();
+        radioButtonQOS = findViewById(radioID);
+        switch (radioButtonQOS.getId()) {
+            case R.id.radioQOS_ONE:
+                Toast.makeText(this, "Selected Quality of Service: very poor", Toast.LENGTH_SHORT).show();
+                this.setQosValue((float)0.5);
                 break;
-            case R.id.radio_two:
-                Toast.makeText(this, "Selected Tip: normal - 10%", Toast.LENGTH_SHORT).show();
-                this.setSelectedTip(10);
+            case R.id.radioQOS_TWO:
+                Toast.makeText(this, "Selected Quality of Service: moderate", Toast.LENGTH_SHORT).show();
+                this.setQosValue(1);
                 break;
-            case R.id.radio_three:
-                Toast.makeText(this, "Selected Tip: generous 20%", Toast.LENGTH_SHORT).show();
-                this.setSelectedTip(5);
+            case R.id.radioQOS_THREE:
+                Toast.makeText(this, "Selected Quality of Service: excellent", Toast.LENGTH_SHORT).show();
+                this.setQosValue(2);
                 break;
             default:
                 Toast.makeText(this, "Invalid Action", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    public void checkButtonGen(View view) {
+        int radioID = radioGroupGEN.getCheckedRadioButtonId();
+        radioButtonGEN = findViewById(radioID);
+        switch (radioButtonGEN.getId()){
+            case R.id.radioGEN_ONE:
+                Toast.makeText(this, "Selected generosity: cheap", Toast.LENGTH_SHORT).show();
+                this.setGenerosityValue(1);
+                break;
+            case R.id.radioGEN_TWO:
+                Toast.makeText(this, "Selected generosity: normal", Toast.LENGTH_SHORT).show();
+                this.setGenerosityValue(5);
+                break;
+            case R.id.radioGEN_THREE:
+                Toast.makeText(this, "Selected generosity: generous", Toast.LENGTH_SHORT).show();
+                this.setGenerosityValue(10);
+                break;
+            default:
                 break;
         }
     }
@@ -128,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * viewHistory will switch to the HistoryActivity. Method is called when the use taps the history button.
+     * viewHistory will switch to the HistoryActivity. Method is called when the user taps HistoryButton.
      */
     public void viewHistory() {
         //TODO Go to secondary activity when button is pressed
