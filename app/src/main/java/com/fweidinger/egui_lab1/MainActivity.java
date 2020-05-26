@@ -19,7 +19,6 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //Member variable declarations
     /**
      * Name of the primary database.
      */
@@ -165,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * viewHistory will switch to the HistoryActivity. Method is called when the user taps HistoryButton.
      */
     public void viewHistory() {
-        //TODO Go to secondary activity when button is pressed
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
     }
