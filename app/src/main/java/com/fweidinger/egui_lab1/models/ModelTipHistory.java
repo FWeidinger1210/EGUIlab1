@@ -38,7 +38,7 @@ public class ModelTipHistory {
             "CREATE TABLE " + TipEntry.TABLE_NAME + " (" +
                     TipEntry._ID + " INTEGER PRIMARY KEY," +
                     TipEntry.COLUMN_NAME_LOCATION + " TEXT," +
-                    TipEntry.COLUMN_NAME_DATE + " DATE," +
+                    TipEntry.COLUMN_NAME_DATE + " TEXT," +
                     TipEntry.COLUMN_NAME_TIP + " FLOAT)";
 
 

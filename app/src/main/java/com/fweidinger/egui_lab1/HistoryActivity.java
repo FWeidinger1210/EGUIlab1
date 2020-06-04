@@ -31,7 +31,7 @@ public class HistoryActivity extends AppCompatActivity {
                     case R.id.button:
                         Cursor cursor = databaseHelper.getData(1);
                         String location = cursor.getColumnName(1);
-                        Toast.makeText(getApplicationContext(), "DB Entry: Location:" + location, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(view.getContext(), "DB Entry: Location:" + location, Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;

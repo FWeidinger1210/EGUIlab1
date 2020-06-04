@@ -38,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param timestamp the date represented as unix ms
      * @return true: succesfull insertion into the database
      */
-    public boolean insertEntry(float tip, String location, int timestamp) {
+    public boolean insertEntry(float tip, String location, String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(ModelTipHistory.TipEntry.getColumnNameTip(), tip);

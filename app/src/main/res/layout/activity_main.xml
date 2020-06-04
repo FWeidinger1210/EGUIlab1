@@ -19,11 +19,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:hint="Enter Location (optional)"
+        android:inputType="text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/calcTipBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/calcTipBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="64dp"
         android:text="Calculate Tip"
         app:layout_constraintBottom_toTopOf="@+id/SumAmountView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,9 +68,10 @@
         android:id="@+id/radioGroupGenerosity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/calcTipBtn"
+        android:layout_marginEnd="128dp"
+        android:checkedButton="@+id/radioGEN_TWO"
+        app:layout_constraintBottom_toTopOf="@+id/location"
         app:layout_constraintEnd_toStartOf="@+id/radioGroupQOS"
-        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputAmount">
 
@@ -86,13 +99,15 @@
 
     <RadioGroup
         android:id="@+id/radioGroupQOS"
-        android:layout_width="wrap_content"
+        android:layout_width="94dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/calcTipBtn"
+        android:layout_marginStart="32dp"
+        android:checkedButton="@+id/radioQOS_ONE"
+        app:layout_constraintBottom_toTopOf="@+id/location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/radioGroupGenerosity"
         app:layout_constraintTop_toBottomOf="@+id/inputAmount">
+
 
         <RadioButton
             android:id="@+id/radioQOS_ONE"
