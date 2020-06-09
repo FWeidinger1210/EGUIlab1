@@ -13,7 +13,7 @@ import com.fweidinger.egui_lab1.models.ModelTipHistory;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "TipHistory.db";
 
 
@@ -48,12 +48,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * @param id The id matching
+     * This method returns all columns in the tipHistory database in descending order of _ID.
      * @return a cursor pointing before the first element found (index = -1)
      */
-    public Cursor getData(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + ModelTipHistory.TipEntry.getTableName(), null);
+    public Cursor getData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.query(ModelTipHistory.TipEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                ModelTipHistory.TipEntry._ID + " DESC"
+        );
     }
 
 }

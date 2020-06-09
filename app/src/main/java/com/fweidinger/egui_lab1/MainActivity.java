@@ -69,9 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         calcTipBtn.setOnClickListener(this);
         historyBtn.setOnClickListener(this);
-
-
     }
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     float bllngAmnt = Float.parseFloat(billingAmountView.getText().toString());
                     float tip = bllngAmnt * (getGenerosityValue() * getQosValue()) / 100;
                     float totalSumResult = tip + bllngAmnt;
-                    totalResultView.setText(String.format(Locale.US, "%.2f", totalSumResult));
-                    tipResultView.setText(String.format(Locale.US, "%.2f", tip));
+                    totalResultView.setText(String.format(Locale.GERMANY, "%.2f", totalSumResult));
+                    tipResultView.setText(String.format(Locale.GERMANY, "%.2f", tip));
                     databaseHelper.insertEntry(tip, checkForEmptyInput(location.getText().toString()), Formatter.formatDate(instant));
                 } catch (NumberFormatException ex) {
                     Toast.makeText(this, "Please enter the Billing Amount!", Toast.LENGTH_SHORT).show();

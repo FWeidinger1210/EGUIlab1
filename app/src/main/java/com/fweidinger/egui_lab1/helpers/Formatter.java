@@ -17,7 +17,7 @@ public class Formatter {
 
         DateTimeFormatter dateTimeFormatter =
                 DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
-                        .withLocale(Locale.US)
+                        .withLocale(Locale.GERMANY)
                         .withZone(ZoneId.systemDefault());
 
         return dateTimeFormatter.format(instant);

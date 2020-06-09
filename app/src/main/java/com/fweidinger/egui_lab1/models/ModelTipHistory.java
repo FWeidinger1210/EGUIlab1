@@ -2,11 +2,20 @@ package com.fweidinger.egui_lab1.models;
 
 import android.provider.BaseColumns;
 
+/**
+ * Implements models for the TipHistory SQL database.
+ */
 public class ModelTipHistory {
 
+    /**
+     * constructor is set to private to prevent users from accidentally instantiating this class.
+     */
     private ModelTipHistory() {
     }
 
+    /**
+     * TipEntry implements the Columns for the SQL Database  by implementing the BaseColumns interface
+     */
     public static class TipEntry implements BaseColumns {
         public static String getTableName() {
             return TABLE_NAME;
