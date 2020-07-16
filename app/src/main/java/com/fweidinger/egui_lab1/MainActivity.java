@@ -1,7 +1,6 @@
 package com.fweidinger.egui_lab1;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,47 +14,81 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fweidinger.egui_lab1.helpers.DatabaseHelper;
+import com.fweidinger.egui_lab1.data.DatabaseHelper;
 import com.fweidinger.egui_lab1.helpers.Formatter;
 
 import java.time.Instant;
 import java.util.Locale;
 
+/**
+ * The main activity serves as entry point to the application.
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    /**
-     * Name of the primary database.
-     */
-    final String databaseName = "historyDB.db";
 
 
     RadioGroup radioGroupQOS;
     RadioButton radioButtonQOS;
     RadioGroup radioGroupGEN;
     RadioButton radioButtonGEN;
+    /**
+     * Reference to the DatabaseHelper Class that handles all operation between the UI and the database.
+     */
     DatabaseHelper databaseHelper;
 
+    /**
+     * The Quality of Service represented as a floating point number.
+     * Can be 0.5, 1 or 2.
+     * qosValue is used to calculate the tip. Its value is set in the checkButton() method.
+     */
     private float qosValue;
+    /**
+     * The generosity level represented as a floating point number.
+     * Can be 1, 5 or 10.
+     * qosValue is used to calculate the tip. Its value is set in the checkButton() method.
+     */
+    private float generosityValue;
 
+    /**
+     *  Returns the Quality of Service for calculations.
+     * @return qosValue  - the Quality of Service value
+     */
     public float getQosValue() {
         return qosValue;
     }
 
+    /**
+     * Sets the Quality of Service value. (Used in checkButton)
+     * @param qosValue qosValue  - the Quality of Service value
+     */
     public void setQosValue(float qosValue) {
         this.qosValue = qosValue;
     }
 
+    /**
+     * Getter for the generosity level
+     * @return generosityValue
+     */
     public float getGenerosityValue() {
         return generosityValue;
     }
 
+    /**
+     * Setter for the generosity level. (Used in checkButtonGen() method)
+     * @param generosityValue
+     */
     public void setGenerosityValue(float generosityValue) {
         this.generosityValue = generosityValue;
     }
 
-    private float generosityValue;
 
-
+    /**
+     * The onCreate Method initialises the basic setup of the MainAcivity.
+     * It finds the relevant views by calling the findViewById method and also sets on ClickListeners for the two Buttons in this layout.
+     * In this method a new instance of the DatabaseHelper class is created. This way the connection to the database is permanent
+     * for the lifetime of the activity. Otherwise a new connection would have to be opened for every insertion, which is not ressource
+     * efficient.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,8 +141,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * This method is called when a RadioButton of buttonGroup is pressed. Distinguishes between specific RadioButton by ID and selects tip.
-     *
+     * This method is called when a RadioButton of buttonGroupQOS is pressed.
+     * Distinguishes between specific RadioButton by ID and sets qosValue.
      * @param v The view
      */
     public void checkButton(View v) {
@@ -135,6 +168,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * This method is called when a RadioButton of buttonGroupGEN is pressed.
+     * Distinguishes between specific RadioButton by ID and sets generosityValue.
+     * @param view the view
+     */
     public void checkButtonGen(View view) {
         int radioID = radioGroupGEN.getCheckedRadioButtonId();
         radioButtonGEN = findViewById(radioID);
@@ -157,25 +195,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     * This method determines if the app is run for the first time.
-     *
-     * @return true: first start; false : recurring start
-     */
-    public boolean isFirstAppStart() {
-        boolean first = false;
-        SharedPreferences sharedPreferences = getSharedPreferences("firstStart", MODE_PRIVATE);
-        SharedPreferences.Editor shrdPrfEditor = sharedPreferences.edit();
-        if (!sharedPreferences.getBoolean("firstStart", false)) {
-            first = true;
-            shrdPrfEditor.putBoolean("firstStart", true);
-            shrdPrfEditor.commit();
-        }
-        return first;
-    }
 
     /**
-     * viewHistory will switch to the HistoryActivity. Method is called when the user taps HistoryButton.
+     * viewHistory will switch to the HistoryActivity. The Method is called when the user touches HistoryButton.
+     * A new Intent is created that takes the HistoryAcivity as a parameter. The startActivity() method then knows precisely what
+     * activity is to be displayed.
      */
     public void viewHistory() {
         Intent intent = new Intent(this, HistoryActivity.class);
@@ -183,8 +207,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * Checks a given inputString for emptiness. If String is empty, will return "unknown". Else returns the inputString unaltered.
-     * @param inputString the input string to be checked for emptiness
+     * Checks a given inputString for 'emptiness'. If String is empty, will return "unknown". Else returns the inputString unaltered.
+     * @param inputString the input string to be checked for 'emptiness'
      * @return true: "unknown" false: inputString
      */
     private String checkForEmptyInput(String inputString) {
