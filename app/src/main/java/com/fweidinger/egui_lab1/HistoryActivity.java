@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fweidinger.egui_lab1.adapters.TipAdapter;
-import com.fweidinger.egui_lab1.helpers.DatabaseHelper;
+import com.fweidinger.egui_lab1.data.DatabaseHelper;
 
 /**
  * This Activity will display the contents of the Tip database.
+ * It holds a RecyclerView that is provided with child views by the TipAdapter.
  */
 public class HistoryActivity extends AppCompatActivity {
 
